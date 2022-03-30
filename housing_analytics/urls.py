@@ -18,8 +18,10 @@ from django.urls import path
 
 #Added Home View
 from home import views
+from map import views as map_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home', views.home)
+    path('home', views.home),
+    path('map', map_views.index),
 ]
