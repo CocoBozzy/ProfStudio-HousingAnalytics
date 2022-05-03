@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('smart/', include('notes.urls')),
     path('',include('map.urls')),
+    path('', include('charts.urls'))
     #path('home', views.home),
     # path('map', map_views.index),
 ]
