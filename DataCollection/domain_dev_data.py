@@ -2,9 +2,9 @@ import requests
 import json
 from DataCollection import convert_to_df
 
-rach_client = ''
-rach_secret = ''
-rach_api_key = ''
+rach_client = 'client_e4658c392bc206a4e6dfb1335576444b'
+rach_secret = 'secret_830a73c26ec95dc66c2d605e62809e08'
+rach_api_key = 'key_54d3141d923ee3353eab7288845f9f82'
 auth_url = 'https://auth.domain.com.au/v1/connect/token'
 url_test = 'https://api.domain.com.au/v1/agencies/22473/listings?listingStatusFilter=live&pageNumber=1&pageSize=3'
 listing_base_url = 'https://api.domain.com.au/v1/listings/'
