@@ -2,14 +2,88 @@
 
 {% block scripts %}
 <script>
-    $(document).ready(function(){
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
+    $(document).ready(function()
+    {
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart
+        (ctx, 
+        {
+        type: 'line',
+        data: 
+        {
+            labels: ['2016', '2017', '2018', '2019', '2020', '2021'],
+            datasets: [{
+                label: 'NSW Yearly Average House Prices',
+                data: [800000, 900000, 835000, 850000, 900000, 1100000],
+                fill: false,
+                borderColor: 'rgb(75,192,192)',
+                tension: 0.1
+            }]
+        }
+        });
+    //New Bar Chart
+    const ctx2 = document.getElementById('PPRI').getContext('2d');
+        const PPRIChart = new Chart
+        (ctx2, 
+        {
+        type: 'bar',
+        data: 
+        {
+            labels: ['Dec-19', 'Mar-20', 'Jun-20', 'Sep-20', 'Dec-20', 'Mar-21', 'Jun-21','Sep-21','Dec-21'],
+            datasets: [{
+                label: 'Residential property prices, weighted average changed',
+                data: [3.9, 1.6, -1.8, 0.8, 3, 5.4, 3, 6.7, 5, 4.7],
+                fill: false,
+                borderColor: 'rgb(255,165,0)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    
+                tension: 0.1
+            }]
+        }
+        }); 
+    //------------------
+
+    //New Bar Chart horizontal
+     const ctx3 = document.getElementById('QHbar').getContext('2d');
+        const QHbar = new Chart
+        (ctx3, 
+        {
+        type: 'bar',
+        data: 
+        {
+            labels: ['Dec-19', 'Mar-20', 'Jun-20', 'Sep-20', 'Dec-20', 'Mar-21', 'Jun-21','Sep-21','Dec-21'],
+            datasets: [{
+                label: 'Residential property prices, weighted average changed',
+                data: [3.9, 1.6, -1.8, 0.8, 3, 5.4, 3, 6.7, 5, 4.7],
+                fill: false,
+                borderColor: 'rgb(255,165,0)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    
+                tension: 0.1
+            }]
+        },
+        options: 
+        {
+            indexAxis: 'y' 
+        }
+
+            
+        }); 
+    //------------------
+
+
+    //});
+ 
+    //{
+        const ctx1 = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctx1, {
         type: 'bar',
         data: {
+
             labels: ['Sydney', 'Melbourne', 'Brisbane', 'Adelaide', 'Perth', 'Canberra'],
-            datasets: [{
-                label: 'Average House Price',
+            datasets: 
+            [{
+                label: 'Average House Price by State',
                 data: [955000, 737000, 530000, 465000, 500000, 670000],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -40,10 +114,18 @@
         });
 
     });
+
 </script>
+
 {% endblock scripts %}
 
 {% block content %}
     <h1>Average House Prices</h1>
-    <canvas id="myChart" width="200" height="100"></canvas>
+    <canvas id="barChart" width="200" height="100"></canvas>
+    <h1>NSW House Prices</h1>
+    <canvas id="lineChart" width="200" height="100"></canvas>
+    <h1>Quarterly weight average changed</h1>
+    <canvas id="PPRI" width="200" height="100"></canvas>
+    <h1>Quarterly % changed</h1>
+    <canvas id="QHbar" width="200" height="100"></canvas>
 {% endblock content %}
