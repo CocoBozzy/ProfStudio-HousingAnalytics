@@ -1,5 +1,86 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Welcome to Housing Analytics!</h1>
+    <html>
+        <head>
+            <title>Housing Homepage</title>
+            {% load static %}
+            <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+        </head>
+
+        
+        <div class="homeclass">
+        
+            <h1>Welcome to Housing Analytics!</h1>
+
+            <p style= color:black; background-color:white; border: white 5px solid> 
+            Housing Analytics is a data management system and data visualisation web application that allows for greater insights into the housing market in Australia. </p>
+
+            <h1>Monthly Home Index Values</h1>
+            
+            <table>
+            <tr>
+                <th>City</th>
+                <th>Houses</th>
+            
+            </tr>
+            <tr>
+                <td>Sydney</td>
+                <td>230</td>
+            
+            </tr>
+            <tr>
+                <td>Melbourne</td>
+                <td>187.6</td>
+            
+            </tr>
+            <tr>
+                <td>Brisbane </td>
+                <td>172</td>
+            
+            </tr>
+            <tr>
+                <td>Adelaide</td>
+                <td>168.1</td>
+            
+            </tr>
+            <tr>
+                <td>Perth</td>
+                <td>112</td>
+            
+            </tr>
+
+            </table>
+            
+            
+            
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <h2>Contact Us</h2>
+            
+            <p>Telephone: 1800 548 797</p>
+            <p>Email: developers@HA.com.au</p>
+                
+            <br>
+            <br>
+            <br>
+            <br>
+      
+            
+                      
+            <p style ="text-align: center">© HOUSING ANALYTICS</p>
+            
+            </div>
+                
+            
+        
+    
 {% endblock %}
