@@ -1,5 +1,7 @@
 import requests
 import json
+import folium
+import pandas as pd
 from DataCollection import convert_to_df
 
 rach_client = 'client_e4658c392bc206a4e6dfb1335576444b'
@@ -61,3 +63,14 @@ if __name__ == "__main__":
     dicts = get_agencies_listings(token)
     df = convert_to_df.convert_dict_to_df(dicts)
     print(df)
+
+    # visualisations
+    locations = df[['Latitude', 'Longitude']]
+    location_list = locations.values.tolist()
+    len(location_list)
+    print(location_list[0])
+
+    map = folium.Map(location=location_list[0], zoom_start=12)
+    for point in range(0, len(location_list)):
+        folium.Marker(location_list[point], popup=df['ListingType'][point]).add_to(map)
+    map.save('my_map.html')
