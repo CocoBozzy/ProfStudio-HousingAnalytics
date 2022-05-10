@@ -1,6 +1,8 @@
 import requests
 import json
-from DataCollection import convert_to_df
+import sys
+import os
+import convert_to_df
 
 rach_client = 'client_e4658c392bc206a4e6dfb1335576444b'
 rach_secret = 'secret_830a73c26ec95dc66c2d605e62809e08'
