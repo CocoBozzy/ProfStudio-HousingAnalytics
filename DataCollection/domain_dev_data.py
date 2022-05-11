@@ -26,7 +26,7 @@ def get_access_token():
     return access_token
 
 
-def get_agencies_listings(token):
+def get_agencies_listings(token, suburb):
     auth = {'Authorization': 'Bearer ' + token}
     listing_url = listing_base_url + 'residential/_search'
     print(listing_url)
@@ -41,10 +41,19 @@ def get_agencies_listings(token):
                 "state": "NSW",
                 "region": "",
                 "area": "",
-                "suburb": "Deewhy",
+                "suburb": '"' + suburb + '"',
                 "postCode": "",
                 "includeSurroundingSuburbs": False
-            }]
+            },
+            {
+                "state": "NSW",
+                "region": "",
+                "area": "",
+                "suburb": "Freshwater",
+                "postCode": "",
+                "includeSurroundingSuburbs": False
+            }
+        ]
     }
 
     resp = requests.post(listing_url, headers=auth, data=json.dumps(data))
@@ -60,7 +69,7 @@ def get_agencies_listings(token):
 
 if __name__ == "__main__":
     token = get_access_token()
-    dicts = get_agencies_listings(token)
+    dicts = get_agencies_listings(token, "Newtown")
     df = convert_to_df.convert_dict_to_df(dicts)
     print(df)
 
@@ -71,6 +80,9 @@ if __name__ == "__main__":
     print(location_list[0])
 
     map = folium.Map(location=location_list[0], zoom_start=12)
-    for point in range(0, len(location_list)):
-        folium.Marker(location_list[point], popup=df['ListingType'][point]).add_to(map)
-    map.save('my_map.html')
+    try:
+        for point in range(0, len(location_list)):
+            folium.Marker(location_list[point], popup=df['ListingType'][point]).add_to(map)
+    except:
+        print('')
+    map.save('my_map2.html')
