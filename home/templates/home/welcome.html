@@ -2,10 +2,11 @@
 
 
 {% block content %}
+{% load static %}
     <html>
         <head>
             <title>Housing Homepage</title>
-            {% load static %}
+        
             <link rel="stylesheet" type ="text/css" href="{% static 'css/home.css' %}"/>
          
         </head>
@@ -19,8 +20,8 @@
                 <p> Housing Analytics is a data management system and data visualisation web application that allows for greater insights into the housing market in Australia. </p>            
             </div>
 
-            <figure class="house">
-                <img src = "{% static 'images/houses.jpg' %}"  alt="House" width= 1200px height= 600px>
+            <figure style = "margin-left:auto; margin-right:auto">
+                <img src = "{% static 'images/houses.jpg' %}"  alt="House" width= 1200px height= 750px>
             </figure>
 
             <br>
@@ -32,19 +33,19 @@
             <br>
             <br>
 
-            <h2>Contact Us</h2>
-            
-            <p>Telephone: 1800 548 797</p>
-            <p>Email: developers@HA.com.au</p>
+            <div style = "position: center">
+                <h2><a href="{% url 'contact' %}">Contact Us</a></h2>
+               
+                <br>
+                <br>
+                <br>
+                <br>
+                <p style ="text-align: center">© HOUSING ANALYTICS</p>
                 
-            <br>
-            <br>
-            <br>
-            <br>
-    
             
-                    
-            <p style ="text-align: center">© HOUSING ANALYTICS</p>
+            </div>
+
+            
             
             </div>
         
