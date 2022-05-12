@@ -4,23 +4,23 @@
 <script>
     $(document).ready(function()
     {
-        const ctx = document.getElementById('lineChart').getContext('2d');
-        const lineChart = new Chart
-        (ctx, 
-        {
-        type: 'line',
-        data: 
-        {
-            labels: ['2016', '2017', '2018', '2019', '2020', '2021'],
-            datasets: [{
-                label: 'NSW Yearly Average House Prices',
-                data: [800000, 900000, 835000, 850000, 900000, 1100000],
-                fill: false,
-                borderColor: 'rgb(75,192,192)',
-                tension: 0.1
-            }]
-        }
-        });
+        // const ctx = document.getElementById('lineChart').getContext('2d');
+        // const lineChart = new Chart
+        // (ctx, 
+        // {
+        // type: 'line',
+        // data: 
+        // {
+        //     labels: ['2016', '2017', '2018', '2019', '2020', '2021'],
+        //     datasets: [{
+        //         label: 'NSW Yearly Average House Prices',
+        //         data: [800000, 900000, 835000, 850000, 900000, 1100000],
+        //         fill: false,
+        //         borderColor: 'rgb(75,192,192)',
+        //         tension: 0.1
+        //     }]
+        // }
+        // });
 
         //Dwelling stock
         const ctx7 = document.getElementById('lineStock').getContext('2d');
@@ -56,7 +56,7 @@
                     data: [3.9, 1.6, -1.8, 0.8, 3, 5.4, 3, 6.7, 5, 4.7],
                     fill: false,
                     borderColor: 'rgb(255,165,0)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    backgroundColor: 'rgba(144,238, 144, 0.6)',
                     tension: 0.1
                 }]
             }
@@ -186,12 +186,27 @@
                 label: 'Residential Property Price Index',
                 data: [5.2,3,2.3,-1.4,-0.1,-1.2,-1.2,-1.9,-3.7,-3.9,-0.5,3.6,4.7,1.9,-2.2,1,3,6.1,8.1,6.2,4.1],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
                 ],
             },
             {
@@ -256,15 +271,12 @@
     <h1>Residential Property Price Index</h1>
     <canvas id="lineMulti" width="100" height="50"></canvas>
 
-    <h1>Line</h1>
-    <canvas id="lineStock" width="100" height="10"></canvas>
+    <h1>Historical Total Australian Dwelling Stock</h1>
+    <canvas id="lineStock" width="100" height="30"></canvas>
     
 
-    <h1>Bar & Line Prices</h1>
-    <canvas id="bothChart" width="100" height="50"></canvas>
 
-
-    <h1>Quarterly weight average changed</h1>
+    <h1>Quarterly Weight Average of Capital Cities</h1>
     <canvas id="PPRI" width="200" height="100"></canvas>
     
     
@@ -274,13 +286,16 @@
     
     <h1>Average House Prices</h1>
     <canvas id="barChart" width="200" height="100"></canvas>
+
+    <h1>Sydney Qrt % Change</h1>
+    <canvas id="bothChart" width="100" height="50"></canvas>
     
 
-    <h1>NSW House Prices</h1>
-    <canvas id="lineChart" width="200" height="100"></canvas>
+    <!-- <h1>NSW House Prices</h1>
+    <canvas id="lineChart" width="200" height="100"></canvas> -->
 
     <h1>NSW HRADARs</h1>
-    <canvas id="radar" width="200" height="100"></canvas>
+    <canvas id="radar" width="200" height="100"></canvas> 
     
     <br>
     <br>
