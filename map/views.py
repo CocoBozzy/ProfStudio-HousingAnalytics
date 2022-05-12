@@ -5,14 +5,12 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from .forms import SearchCriteriaForm
+import DataCollection.domain_dev_data as ddd
+from .models import SearchCriteria
 import folium
 import pandas as pd
 
-from .forms import SearchCriteriaForm
-import DataCollection.domain_dev_data as ddd
-
-from .models import SearchCriteria
 
 def map(request):
     m = folium.Map(location=[-33.8898, 151.2134], zoom_start=14)
@@ -21,7 +19,7 @@ def map(request):
 
     if request.method == "POST":
         suburb = request.POST.get('search')
-        print(suburb)
+        # print(suburb)
 
         token = ddd.get_access_token()
         dicts = ddd.get_agencies_listings(token, suburb)
