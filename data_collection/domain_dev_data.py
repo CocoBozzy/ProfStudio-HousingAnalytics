@@ -2,7 +2,7 @@ import requests
 import json
 import folium
 import pandas as pd
-from DataCollection import convert_to_df
+from data_collection import convert_to_df
 
 rach_client = 'client_e4658c392bc206a4e6dfb1335576444b'
 rach_secret = 'secret_830a73c26ec95dc66c2d605e62809e08'
@@ -26,16 +26,16 @@ def get_access_token():
     return access_token
 
 
-def get_agencies_listings(token, suburb):
+def get_agencies_listings(token, suburb, bedrooms=1, bathrooms=1, cars=1):
     auth = {'Authorization': 'Bearer ' + token}
     listing_url = listing_base_url + 'residential/_search'
     print(listing_url)
 
     data = {
         'listingType': 'Sale',
-        'minBedrooms': 2,
-        'minBathrooms': 1,
-        'minCarspaces': 1,
+        'minBedrooms': bedrooms,
+        'minBathrooms': bathrooms,
+        'minCarspaces': cars,
         "locations": [
             {
                 "state": "NSW",
@@ -44,17 +44,10 @@ def get_agencies_listings(token, suburb):
                 "suburb": '"' + suburb + '"',
                 "postCode": "",
                 "includeSurroundingSuburbs": False
-            },
-            {
-                "state": "NSW",
-                "region": "",
-                "area": "",
-                "suburb": "Freshwater",
-                "postCode": "",
-                "includeSurroundingSuburbs": False
             }
         ]
     }
+    print(data)
 
     resp = requests.post(listing_url, headers=auth, data=json.dumps(data))
     resp_json = resp.json()

@@ -1,17 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <form class="form" method="post">
-    {% csrf_token %}
-    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-
   <div class="container">
-      <div class="row mt-4">
-        <div class="col-md-10 offset-md-1">
-            {{ m|safe }}
-        </div>
-    </div>
+      <div style="display:inline-block; vertical-align:top; width:700">
+          {{ m|safe }}
+      </div>
+
+      <div style="display:inline-block; float:right">
+          <form class="form" method="post">
+              {% csrf_token %}
+
+              <div style="display:inline-block; margin-bottom:10px;">
+                  <input class="form-control mr-sm-2" type="search" name="suburb" placeholder="Suburb" aria-label="Search">
+              </div><br>
+
+              <div style="display:inline-block; margin-bottom:10px;">
+                  <input class="form-control mr-sm-2" type="search" name="bedrooms" placeholder="Bedrooms" aria-label="Search">
+              </div><br>
+
+              <div style="display:inline-block; margin-bottom:10px;">
+                  <input class="form-control mr-sm-2" type="search" name="bathrooms" placeholder="Bathrooms" aria-label="Search">
+              </div><br>
+
+              <div style="display:inline-block; margin-bottom:10px;">
+                  <input class="form-control mr-sm-2" type="search" name="cars" placeholder="Cars" aria-label="Search">
+              </div><br>
+              <br>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
   </div>
+
+  <br>
+  <br>
+
+  <p style ="text-align: center">© HOUSING ANALYTICS</p>
 {% endblock %}

@@ -1,13 +1,34 @@
-
-table {
-font-family: arial, sans-serif;
-border-collapse: collapse;
-width: 30%;
+.home-body{
+    font-family: 'Lato', sans-serif;
+    /* background-color: darkslateblue;    */
+    width: 100%;
+    position: center;
 }
 
+.welcome-text{
+    color: purple;
+    text-align: center;
+}
+.welcome-text h1{
+    color: orange;
+    font-size: 60px;
+}
+.welcome-text p{
+    color: orange;
+    font-size: 20px;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 30%;
+    position: center;
+    }
+    
 td, th {
 border: 1px solid #dddddd;
-text-align: left;
+text-align: center;
 padding: 8px;
 }
 
@@ -15,9 +36,8 @@ tr:nth-child(even) {
 background-color: #dddddd;
 }
 
-.homeclass { 
-    font-family: Arial;
-    text-align: left;
-    font-size: 20px;
-    margin-left: 150px;
+.center{
+    margin-left: auto;
+    margin-right: auto;
 }
+
