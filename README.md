@@ -1,2 +1,4 @@
 # ProfStudio-HousingAnalytics
-Repository for the development of our groups Housing analytics project. 
+Repository for the development of our groups Housing analytics project.
+ 
+venv\Scripts\activate
