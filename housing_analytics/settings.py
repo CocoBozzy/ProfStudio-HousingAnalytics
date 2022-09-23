@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'home',
     'map',
     'notes',
-    'charts',
-    'search'
+    'charts'
 ]
 
 MIDDLEWARE = [
