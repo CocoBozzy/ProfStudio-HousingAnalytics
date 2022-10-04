@@ -32,6 +32,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
+
+
               <a class="nav-link" href={% url 'charts' %}>Residential Property<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
@@ -43,10 +45,24 @@
             
           </ul>
 
-          <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
+          
+          <div id="navbar" class="navbar-collapse collapse"> 
+
+            {% if user.is_authenticated %}
+            <ul class="nav-area">
+                <li>User: {{ user.get_username }}</li>
+                <a class="nav-link" href={% url 'login' %}>Logout<span class="sr-only">(current)</span></a>  
+            </ul>
+        
+            {% else %}
+            <ul class="nav-area">
+              <a class="nav-link" href={% url 'login' %}>Login<span class="sr-only">(current)</span></a>
+            </ul>
+  
+       
+            {% endif %}
+
+
         </div>
       </nav>
 

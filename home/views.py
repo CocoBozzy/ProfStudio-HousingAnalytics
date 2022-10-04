@@ -16,8 +16,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #     return render(request, 'home/authorized.html',{})
 
 
-
-
 #Class based Views
 class HomeView(TemplateView):
     template_name = 'home/welcome.html' 
@@ -28,12 +26,22 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
     login_url = '/admin'
 
 
-
 def contact(request):
     """View function for home page of site."""
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'home/contact.html')
 
+def login_page(request):
+    """Login page of site."""
 
+    context = {}
 
+    return render(request, 'home/accounts/login.html', context)
+
+def register_page(request):
+    
+    context = {}
+
+    # Render the HTML template index.html with the data in the context variable
+    return render(request, 'home/accounts/register.html', context)
 
