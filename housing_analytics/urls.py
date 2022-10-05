@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url, include
-from search import views
 
 #Added Home View
 # from home import views
@@ -29,7 +28,5 @@ urlpatterns = [
     path('smart/', include('notes.urls')),
     path('', include('map.urls')),
     path('', include('charts.urls')),
-    url(r'search/', views.search, name='search')
-    #path('home', views.home),
     # path('map', map_views.index),
 ]
