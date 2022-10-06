@@ -15,18 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url, include
 
 #Added Home View
 # from home import views
 # from map import views as map_views
 
-# from django.contrib import admin
-# from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('',include('map.urls')),
-    path('', include('charts.urls'))
+    path('', include('charts.urls')),
     #path('home', views.home),
 ]
