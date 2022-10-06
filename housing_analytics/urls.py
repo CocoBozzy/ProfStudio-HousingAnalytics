@@ -25,8 +25,7 @@ from django.conf.urls import url, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('smart/', include('notes.urls')),
-    path('', include('map.urls')),
+    path('',include('map.urls')),
     path('', include('charts.urls')),
-    # path('map', map_views.index),
+    #path('home', views.home),
 ]

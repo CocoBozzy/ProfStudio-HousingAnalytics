@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     # Created Apps
     'home',
     'map',
-    'notes',
     'charts'
 ]
 

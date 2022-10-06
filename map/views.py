@@ -1,4 +1,15 @@
 from django.shortcuts import render
+#from django.http import HttpResponse
+#from django.contrib.auth.decorators import login_required
+#from datetime import datetime
+#from django.views.generic import TemplateView
+#from django.contrib.auth.mixins import LoginRequiredMixin
+#from .forms import SearchCriteriaForm
+#import DataCollection.domain_dev_data as ddd
+#from .models import SearchCriteria
+#import folium
+#import pandas as pd
+=======
 import folium
 import pandas as pd
 from .models import SearchCriteria
@@ -7,7 +18,6 @@ import os
 from .forms import SearchCriteriaForm
 import data_collection.domain_dev_data as ddd
 
-
 # Create your views here.
 def build_map(request):
     m = folium.Map(location=[-33.8898, 151.2134], zoom_start=14)
@@ -15,6 +25,7 @@ def build_map(request):
     context = {'m': m}
 
     if request.method == "POST":
+
         # Get user input
         suburb = request.POST.get('suburb')
         bedrooms = request.POST.get('bedrooms')
