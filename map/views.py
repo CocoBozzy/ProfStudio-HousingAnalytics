@@ -9,7 +9,7 @@ from django.shortcuts import render
 #from .models import SearchCriteria
 #import folium
 #import pandas as pd
-=======
+
 import folium
 import pandas as pd
 from .models import SearchCriteria
