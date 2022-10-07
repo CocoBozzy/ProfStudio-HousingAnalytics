@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <div style="display:inline-block; float:right">
+        <form class="form" method="post">
+            {% csrf_token %}
+
+            <div style="display:inline-block; margin-bottom:10px;">
+                <input class="form-control mr-sm-2" type="search" name="suburb" placeholder="Suburb" aria-label="Search">
+            </div><br>
+
+            <div style="display:inline-block; margin-bottom:10px;">
+                <input class="form-control mr-sm-2" type="search" name="bedrooms" placeholder="Bedrooms" aria-label="Search">
+            </div><br>
+
+            <div style="display:inline-block; margin-bottom:10px;">
+                <input class="form-control mr-sm-2" type="search" name="bathrooms" placeholder="Bathrooms" aria-label="Search">
+            </div><br>
+
+            <div style="display:inline-block; margin-bottom:10px;">
+                <input class="form-control mr-sm-2" type="search" name="cars" placeholder="Cars" aria-label="Search">
+            </div><br>
+            <br>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+</div>
+
+{% endblock %}
+
+  <br>
+  <br>
+
+<div>
+
+{% block scripts %}
+
+<script>
+    $(document).ready(function()
+{
+
+        //Dwelling stock
+        const ctx7 = document.getElementById('lineStock').getContext('2d');
+        const lineStock = new Chart
+        (ctx7, 
+        {
+        type: 'line',
+        data: 
+        {
+            labels: ['Dec-16','Mar-17'	,'Jun-17','Sep-17','Dec-17'	,'Mar-18'	,'Jun-18'	,'Sep-18'	,'Dec-18'	,'Mar-19'	,'Jun-19'	,'Sep-19'	,'Dec-19'	,'Mar-20'	,'Jun-20'	,'Sep-20'	,'Dec-20','Mar-21'	,'Jun-21'	,'Sep-21'	,'Dec-21'],
+            datasets: [{
+                label: 'Total value of dwelling stock ($m)',
+                data: [6441224.40,6601671.70,6771343.50,6779347.80,6946229.30,6957246.10,6920978.30,6860065.30,6788971.40,6656041.10,6720484.50,6951369.80,7170832.20,7278072.70,7251093.30,7487531.10,7886460.50,8360913.50,8807771.40,9388934.30,9901583.60],
+                fill: false,
+                borderColor: 'rgb(75,192,192)',
+                tension: 0.1
+            }]
+        }
+        });
+</script>
+
+{% endblock scripts %}
+
+</div>
+
+
+  <p style ="text-align: center">© HOUSING ANALYTICS</p>
+

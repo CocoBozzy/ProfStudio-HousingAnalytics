@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
+from charts.models import House
 #from django.http import HttpResponse
 #from django.contrib.auth.decorators import login_required
 #from datetime import datetime
@@ -74,3 +76,15 @@ def build_map(request):
         form = SearchCriteriaForm()
 
     return render(request, "map/index.html", context)
+
+def build_suburb_view(request):
+
+    return render(request, "map/suburb_data.html")
+
+class ChartView(TemplateView):
+    template_name = 'map/suburb_data.html' 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"]= House.objects.all()
+        return context
