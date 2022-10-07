@@ -29,6 +29,24 @@
         html {
           background: #f1f1f1 !important;
         }
+
+        /* Style the links inside the navigation bar */
+        .topnav a {
+          color: #f2f2f2;
+        }
+        .topnav li{
+          list-style-type: none;
+        } 
+
+        /* Add a color to the active/current link */
+        .topnav a.active {
+          color: blue;
+        }
+
+        /* Right-aligned section inside the top navigation */
+        .topnav-right {
+          float: right;
+        }
       </style>
 
 
@@ -54,25 +72,28 @@
             <li class="nav-item active">
               <a class="nav-link" href={% url 'contact' %}>Contact Us<span class="sr-only">(current)</span></a>
             </li>
-            
+        </div>
+        
+        <div class="topnav">
+          <div class="topnav-right">
             {% if user.is_authenticated %}
-              <li class="login-item">
+              <li class="nav-item active">
                 >User: {{ user.get_username }}
               </li>
-                <a class="nav-link" href={% url 'login' %}>Logout<span class="sr-only">(current)</span></a>  
-     
+
+              <a class="active"  href={% url 'login' %}>Logout</a>  
+
             {% else %}
-              <li class="login-item">
-                <a class="nav-link" href={% url 'login' %}>Login<span class="sr-only">(current)</span></a>
+              <li class="nav-item active">
+                <a class="active" href={% url 'login' %}>Login</a>
               </li>
-            </ul>
-  
-       
             {% endif %}
-
-
+          </div>
         </div>
+
+
       </nav>
+   
 
       {% block scripts %}
       {% endblock scripts %}
