@@ -2,7 +2,20 @@ from airflow import DAG
 # We need to import the operators used in the tasks
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
+
+import os
 import pandas as pd
+
+dag_path = os.getcwd
+
+def transform_data():
+    SydHousePrice = pd.read_csv(f"{dag_path}/raw_data/SydneyHousingPrice.csv", low_memory=False)
+
+    # make date format consistent
+    data.Date = pd.to_datetime(data.Date, infer_datetime_format=True)
+
+    # load processed data
+    data.to_csv(f"{dag_path}/processed_data/processed_data.csv", index=False)
 
 
 # initializing the default arguments that we'll pass to our DAG
@@ -19,7 +32,6 @@ ingestion_dag = DAG(
     catchup=False
 )
 
-from airflow.operators.python_operator import PythonOperator
 
 task_1 = PythonOperator(
     task_id='transform_data',
@@ -33,11 +45,7 @@ task_2 = PythonOperator(
     dag=ingestion_dag,
 )
 
-def transform_data():
-    SydHousePrice = pd.read_csv(f"{dag_path}/raw_data/SydneyHousingPrice.csv", low_memory=False)
+task_1 >> task_2
 
-    # make date format consistent
-    data.Date = pd.to_datetime(data.Date, infer_datetime_format=True)
 
-    # load processed data
-    data.to_csv(f"{dag_path}/processed_data/processed_data.csv", index=False)
+
