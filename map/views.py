@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from multiprocessing import context
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from charts.models import House
+from django.template.response import TemplateResponse
+from django.template.context_processors import request
+import json
+from django.contrib import messages
 #from django.http import HttpResponse
 #from django.contrib.auth.decorators import login_required
 #from datetime import datetime
@@ -19,6 +24,7 @@ import os
 
 from .forms import SearchCriteriaForm
 import data_collection.domain_dev_data as ddd
+import callumdomaintest as suburbInfo
 
 # Create your views here.
 def build_map(request):
@@ -77,9 +83,44 @@ def build_map(request):
 
     return render(request, "map/index.html", context)
 
-def build_suburb_view(request):
+def build_get_suburb_view(request):
+    if request.method == "POST":
 
-    return render(request, "map/suburb_data.html")
+    # Get user input
+        propertyCategory = request.POST.get('propertyCategory')
+        bedrooms = request.POST.get('bedrooms')
+        state = request.POST.get('state')
+        suburb = request.POST.get('suburb')
+        postcode = request.POST.get('postcode')
+        print(propertyCategory, bedrooms, state, suburb, postcode)
+        
+        token = suburbInfo.get_access_token()
+        suburbSalesData = suburbInfo.get_sales_per_suburb_per_year(token, propertyCategory, bedrooms, state, suburb, postcode)
+        suburbSalesDataYearList = list(suburbSalesData)
+        suburbSalesDataSoldList = list(suburbSalesData.values())
+        request.session['suburbSalesDataYearList'] = suburbSalesDataYearList
+        request.session['suburbSalesDataSoldList'] = suburbSalesDataSoldList
+        request.session['suburb'] = suburb.capitalize()
+        
+        print(type(suburbSalesData))
+        
+        if isinstance(suburbSalesData, dict):
+            messages.error(request, "Error: This is the sample error Flash message.")
+        
+        return redirect('suburb_data_graph')
+    
+            
+    return render(request, "map/get_suburb_data.html")
+
+def build_suburb_view_graph(request):
+       
+    
+    return render(request, "map/suburb_data_graph.html", context= {
+    'labels': json.dumps(request.session['suburbSalesDataYearList']),
+    'data': json.dumps(request.session['suburbSalesDataSoldList']),
+    'suburb' : (request.session['suburb'])
+    })
+
 
 class ChartView(TemplateView):
     template_name = 'map/suburb_data.html' 
