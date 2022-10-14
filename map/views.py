@@ -6,16 +6,16 @@ from django.template.response import TemplateResponse
 from django.template.context_processors import request
 import json
 from django.contrib import messages
-#from django.http import HttpResponse
-#from django.contrib.auth.decorators import login_required
-#from datetime import datetime
-#from django.views.generic import TemplateView
-#from django.contrib.auth.mixins import LoginRequiredMixin
-#from .forms import SearchCriteriaForm
-#import DataCollection.domain_dev_data as ddd
-#from .models import SearchCriteria
-#import folium
-#import pandas as pd
+# from django.http import HttpResponse
+# from django.contrib.auth.decorators import login_required
+# from datetime import datetime
+# from django.views.generic import TemplateView
+# from django.contrib.auth.mixins import LoginRequiredMixin
+# from .forms import SearchCriteriaForm
+# import DataCollection.domain_dev_data as ddd
+# from .models import SearchCriteria
+# import folium
+# import pandas as pd
 
 import folium
 import pandas as pd
@@ -26,11 +26,14 @@ from .forms import SearchCriteriaForm
 import data_collection.domain_dev_data as ddd
 import callumdomaintest as suburbInfo
 
+
 # Create your views here.
 def build_map(request):
     m = folium.Map(location=[-33.8898, 151.2134], zoom_start=14)
     m = m._repr_html_()
     context = {'m': m}
+    map_error_message = ''
+    graph_error_message = ''
 
     if request.method == "POST":
 
@@ -39,6 +42,7 @@ def build_map(request):
         bedrooms = request.POST.get('bedrooms')
         bathrooms = request.POST.get('bathrooms')
         cars = request.POST.get('cars')
+        postcode = request.POST.get('postcode')
         print(suburb, bedrooms, bathrooms, cars)
 
         # Get Domain API Response data
@@ -55,8 +59,8 @@ def build_map(request):
         school_locations_list = school_locations.values.tolist()
 
         # Build map
-        m = folium.Map(location=location_list[0], zoom_start=15)
         try:
+            m = folium.Map(location=location_list[0], zoom_start=15)
             # visualise properties
             for point in range(0, len(location_list)):
                 tooltip = "<b>Bedrooms:</b> {} <br><b>Bathrooms:</b> {} <br><b>Carspaces:</b> {}".format(
@@ -70,62 +74,51 @@ def build_map(request):
                 folium.Marker(school_locations_list[point], tooltip=tooltip,
                               icon=folium.Icon(icon='fa-leanpub', prefix='fa', color='red')).add_to(m)
 
-        except:
-            print('')
+            m = m._repr_html_()
 
-        # Return map in html format
-        m = m._repr_html_()
-        context = {'m': m}
+        except:
+            m = folium.Map(location=[-33.8898, 151.2134], zoom_start=14)
+            m = m._repr_html_()
+            map_error_message = 'There are no properties for sale that meet the criteria.'
+
+        # Build graph
+        try:
+            token2 = suburbInfo.get_access_token()
+            suburbSalesData = suburbInfo.get_sales_per_suburb_per_year(token2, suburb, postcode, bedrooms)
+
+            suburbSalesDataYearList = list(suburbSalesData)
+            suburbSalesDataSoldList = list(suburbSalesData.values())
+            request.session['suburbSalesDataYearList'] = suburbSalesDataYearList
+            request.session['suburbSalesDataSoldList'] = suburbSalesDataSoldList
+            request.session['suburb'] = suburb.capitalize()
+
+            if isinstance(suburbSalesData, dict):
+                messages.error(request, "Error: This is the sample error Flash message.")
+
+            labels = json.dumps(request.session['suburbSalesDataYearList'])
+            print(labels)
+            data = json.dumps(request.session['suburbSalesDataSoldList'])
+            suburb = request.session['suburb']
+
+        except:
+            graph_error_message = 'There are no historical values for sales in this suburb.'
+            labels = []
+            data = []
+            suburb = suburb
+
+        # Build context with map and graph
+        context = {
+            'm': m,
+            'map_error_message': map_error_message,
+            'graph_error_message': graph_error_message,
+            'labels': labels,
+            'data': data,
+            'suburb': suburb
+        }
+
         return render(request, "map/index.html", context)
 
     else:
         form = SearchCriteriaForm()
 
     return render(request, "map/index.html", context)
-
-def build_get_suburb_view(request):
-    if request.method == "POST":
-
-    # Get user input
-        propertyCategory = request.POST.get('propertyCategory')
-        bedrooms = request.POST.get('bedrooms')
-        state = request.POST.get('state')
-        suburb = request.POST.get('suburb')
-        postcode = request.POST.get('postcode')
-        print(propertyCategory, bedrooms, state, suburb, postcode)
-        
-        token = suburbInfo.get_access_token()
-        suburbSalesData = suburbInfo.get_sales_per_suburb_per_year(token, propertyCategory, bedrooms, state, suburb, postcode)
-        suburbSalesDataYearList = list(suburbSalesData)
-        suburbSalesDataSoldList = list(suburbSalesData.values())
-        request.session['suburbSalesDataYearList'] = suburbSalesDataYearList
-        request.session['suburbSalesDataSoldList'] = suburbSalesDataSoldList
-        request.session['suburb'] = suburb.capitalize()
-        
-        print(type(suburbSalesData))
-        
-        if isinstance(suburbSalesData, dict):
-            messages.error(request, "Error: This is the sample error Flash message.")
-        
-        return redirect('suburb_data_graph')
-    
-            
-    return render(request, "map/get_suburb_data.html")
-
-def build_suburb_view_graph(request):
-       
-    
-    return render(request, "map/suburb_data_graph.html", context= {
-    'labels': json.dumps(request.session['suburbSalesDataYearList']),
-    'data': json.dumps(request.session['suburbSalesDataSoldList']),
-    'suburb' : (request.session['suburb'])
-    })
-
-
-class ChartView(TemplateView):
-    template_name = 'map/suburb_data.html' 
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["qs"]= House.objects.all()
-        return context

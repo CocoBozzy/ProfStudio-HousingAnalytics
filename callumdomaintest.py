@@ -22,61 +22,17 @@ def get_access_token():
     return access_token
 
 
-def get_salesResults(token , suburb = 'Sydney'):
-    
-    url = 'https://api.domain.com.au/v1/salesResults/Sydney/listings'
-    
+def suburbPerformance(token, suburb, postcode, bedrooms):
+    url = 'https://api.domain.com.au/v2/suburbPerformanceStatistics/NSW/' + suburb + '/' + str(postcode) + '?bedrooms=' + str(bedrooms) +'&periodSize=years&startingPeriodRelativeToCurrent=1&totalPeriods=11'
+
     auth = {'Authorization': 'Bearer ' + token}
-    
-    resp = requests.get(url, headers=auth)
-    print(resp.status_code)
-    resp_json = resp.json()
-    # print(json.dumps(resp_json, indent=4))
-    return resp_json
 
-
-def get_agencies_listings(token, suburb, bedrooms=1, bathrooms=1, cars=1):
-    auth = {'Authorization': 'Bearer ' + token}
-    listing_url = listing_base_url + 'residential/_search'
-    print(listing_url)
-
-    data = {
-        'listingType': 'Sale',
-        'minBedrooms': bedrooms,
-        'minBathrooms': bathrooms,
-        'minCarspaces': cars,
-        "locations": [
-            {
-                "state": "NSW",
-                "region": "",
-                "area": "",
-                "suburb": '"' + suburb + '"',
-                "postCode": "",
-                "includeSurroundingSuburbs": False
-            }
-        ]
-    }
-    print(data)
-
-    resp = requests.post(listing_url, headers=auth, data=json.dumps(data))
-    resp_json = resp.json()
-    print(resp_json)
-    return resp_json
-
-######################################################################################################################################
-
-def suburbPerformance(token, propertyCategory, bedrooms, state, suburb, postcode):
-    
-    url = 'https://api.domain.com.au/v2/suburbPerformanceStatistics/' + state +'/' + suburb +'/' + str(postcode) + '?propertyCategory=' +  propertyCategory + '&bedrooms=' + str(bedrooms) +'&periodSize=years&startingPeriodRelativeToCurrent=1&totalPeriods=11'
-    
-    auth = {'Authorization': 'Bearer ' + token}
-    
-    
     resp = requests.get(url, headers=auth)
     print(resp.status_code)
     resp_json = resp.json()
     return resp_json
-    
+
+
 def extract_sold_in_year(json_response):
     info = json_response['series']['seriesInfo']
     print(json.dumps(info, indent=4))
@@ -84,20 +40,19 @@ def extract_sold_in_year(json_response):
     yearSalesResultDict = {}
     for i in info:
         yearSalesResultDict[i['year']] = i['values']['numberSold']
-        
+
     print(json.dumps(yearSalesResultDict, indent=4))
     return yearSalesResultDict
 
 
-def get_sales_per_suburb_per_year(token, propertyCategory, bedrooms, state, suburb, postcode):
-    json_response = suburbPerformance(token, propertyCategory, bedrooms, state, suburb, postcode)
+def get_sales_per_suburb_per_year(token, suburb, postcode, bedrooms):
+    json_response = suburbPerformance(token, suburb, postcode, bedrooms)
     json_response = extract_sold_in_year(json_response)
     return json_response
-    
-    
+
 
 if __name__ == '__main__':
     token = get_access_token()
-    get_sales_per_suburb_per_year(token, propertyCategory='house', bedrooms=4, state='nsw', suburb='terrigal', postcode=2260)
-
-    
+    # result = suburbPerformance(token, suburb='Avalon Beach', postcode=2107, bedrooms=4)
+    test = get_sales_per_suburb_per_year(token, suburb='Avalon Beach', postcode=2107, bedrooms=4)
+    print(test)
