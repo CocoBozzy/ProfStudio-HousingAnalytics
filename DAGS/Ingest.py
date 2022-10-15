@@ -2,6 +2,7 @@ from airflow import DAG
 # We need to import the operators used in the tasks
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
+from datetime import timedelta
 
 import os
 import pandas as pd
