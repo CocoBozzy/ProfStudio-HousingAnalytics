@@ -7,7 +7,7 @@ from django.template.context_processors import request
 import json
 from django.contrib import messages
 # from django.http import HttpResponse
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 # from datetime import datetime
 # from django.views.generic import TemplateView
 # from django.contrib.auth.mixins import LoginRequiredMixin
@@ -28,6 +28,8 @@ import callumdomaintest as suburbInfo
 
 
 # Create your views here.
+
+@login_required(login_url='login')
 def build_map(request):
     m = folium.Map(location=[-33.8898, 151.2134], zoom_start=14)
     m = m._repr_html_()

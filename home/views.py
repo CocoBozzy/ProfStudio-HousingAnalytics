@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect 
 
 # from django.forms import inlineformset_factory
-# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
@@ -66,7 +66,8 @@ def login_page(request):
 
 def logoutUser(request):
 	logout(request)
-	return redirect('login')
+	# return redirect('login')
+	return redirect('home')
 
 
 # @login_required(login_url='login')

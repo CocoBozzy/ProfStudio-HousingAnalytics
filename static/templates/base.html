@@ -83,11 +83,13 @@
         <div class="topnav">
           <div class="topnav-right">
             {% if user.is_authenticated %}
+    
+              
               <li class="nav-item active">
-                >User: {{ user.get_username }}
+                Welcome: {{ user.get_username }}
               </li>
 
-              <a class="active"  href={% url 'login' %}>Logout</a>  
+              <a class="active"  href={% url 'logout' %}>Logout</a>  
 
             {% else %}
               <li class="nav-item active">
