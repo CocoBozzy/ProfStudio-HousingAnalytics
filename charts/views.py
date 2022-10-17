@@ -27,11 +27,21 @@ def chart_data(request):
     data = pd.read_csv("data_sources/SydneyHousing.csv")
 
     #Convert columns to a list array
+   
     labels=  list(data['Suburb'])
     datas = list(data['No.Sales'])
 
+
+    data2 =  pd.read_csv("data_sources/datat2.csv")
+    print(data2)
+    labels2=  list(data2['Suburb'])
+    price = data2['Price'].dropna().astype(float)
+    prices = list(price)
+  
+    
+
     #Return context as safe json 
-    context = {"labels": mark_safe(json.dumps(labels)), "datas": mark_safe(json.dumps(datas))}
+    context = {"labels": mark_safe(json.dumps(labels)), "datas": mark_safe(json.dumps(datas)), "label2": mark_safe(json.dumps(labels2)),"data2": mark_safe(json.dumps(prices))}
 
     return render(request, 'charts/deluxe_charts.html',context)
 
