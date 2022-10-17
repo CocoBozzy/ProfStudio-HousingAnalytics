@@ -1,23 +1,13 @@
 .home-body{
     font-family: 'Lato', sans-serif;
-    /* background-color: darkslateblue;    */
     width: 100%;
     position: center;
 }
 
-.welcome-text{
-    color: purple;
-    text-align: center;
-}
-.welcome-text h1{
-    color: orange;
-    font-size: 60px;
-}
-.welcome-text p{
-    color: orange;
-    font-size: 20px;
-}
 
+.contact-class{
+    font: 10px;
+}
 
 table {
     font-family: arial, sans-serif;
