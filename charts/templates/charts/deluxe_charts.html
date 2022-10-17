@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+  
+{% block scripts %}
+
+<script>
+ 
+    $(document).ready(function() {
+    var chart_labels =JSON.parse('{{labels}}');
+    var chart_data =JSON.parse('{{datas}}');
+
+    var ctx = document.getElementById('chart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: chart_labels ,
+        
+        datasets: [{
+            label: '# of Sales',
+
+            data: chart_data,
+            backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+        }]
+    },
+
+    });
+    });
+</script>
+
+
+{% endblock scripts %}
+
+{% block content %}
+
+    <h1>2022 Sydney Housing Sales by Suburb</h1>
+    <canvas id="chart1"></canvas>
+
+
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    
+       
+    <p style ="text-align: center">© HOUSING ANALYTICS</p>
+{% endblock content %}
